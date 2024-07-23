@@ -1,0 +1,82 @@
+.landing-bg-con {
+    background-image: url("https://img.freepik.com/free-photo/door-leading-magical-world_23-2151038217.jpg");
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px); /* Apply blur effect */
+  }
+  
+  .landing-head {
+    color: aliceblue;
+    font-size: 45px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+  }
+  
+  .landing-desc {
+    color: aliceblue;
+    font-size: 20px;
+    font-family: Lobster;
+    text-align: center;
+    font-weight: 100;
+  }
+  
+  .assessments-button {
+    background-color: #ffffff11;
+    color: red;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 20px;
+    border-color: red;
+    align-self: center;
+  }
+  
+  .login-form-con {
+    background-image: url("https://img.freepik.com/free-photo/cute-possum-wearing-clothes_23-2150953279.jpg");
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Apply blur effect */
+  }
+  
+  .labels {
+    color: #ffffff;
+    font-size: 20px;
+  }
+  
+  .about-con {
+    background-image: url("https://img.freepik.com/premium-photo/office-black-leather-workspace-with-laptop-office-supplies-copy-space_67155-1777.jpg");
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Apply blur effect */
+  }
+  
+  .list {
+    list-style-type: none;
+  }
+  
+  .contact-con {
+    background-image: url("https://img.freepik.com/premium-photo/dark-blue-vintage-dial-telephone-handset-with-dark-blue-background_180224-181.jpg");
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Apply blur effect */
+  }
+  

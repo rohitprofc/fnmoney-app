@@ -13,11 +13,11 @@ const SECRET_KEY = 'your_secret_key';
 
 // User registration endpoint
 app.post('/register', (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
   bcrypt.hash(password, 10, (err, hash) => {
     if (err) return res.status(500).send(err.message);
 
-    db.run('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hash], (err) => {
+    db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, hash], (err) => {
       if (err) return res.status(500).send(err.message);
       res.status(201).send('User registered');
     });
@@ -95,6 +95,62 @@ app.delete('/notes/:id', verifyToken, (req, res) => {
   });
 });
 
+// Get all assessments
+app.get('/assessments', (req, res) => {
+  db.all('SELECT * FROM assessments', (err, rows) => {
+    if (err) return res.status(500).send(err.message);
+    res.json(rows);
+  });
+});
+
+// Register for an assessment
+app.post('/assessments/register', verifyToken, (req, res) => {
+  const { assessmentId } = req.body;
+  db.run('INSERT INTO user_assessments (user_id, assessment_id) VALUES (?, ?)', [req.userId, assessmentId], function(err) {
+    if (err) return res.status(500).send(err.message);
+    res.status(201).send('Registered for assessment');
+  });
+});
+
+// Unregister from an assessment
+app.delete('/assessments/unregister/:assessmentId', (req, res) => {
+  const assessmentId = req.params.assessmentId;
+  const token = req.headers['authorization'];
+
+  if (!token) return res.status(403).send('No token provided');
+
+  const tokenString = token.startsWith('Bearer ') ? token.slice(7) : token;
+
+  jwt.verify(tokenString, SECRET_KEY, (err, decoded) => {
+    if (err) return res.status(500).send('Failed to authenticate token');
+
+    const userId = decoded.id;
+
+    db.run('DELETE FROM user_assessments WHERE user_id = ? AND assessment_id = ?', [userId, assessmentId], function(err) {
+      if (err) {
+        console.error('Error during unregister:', err.message);
+        return res.status(500).send('Error during unregister');
+      }
+      if (this.changes === 0) {
+        return res.status(404).send('Not registered or already unregistered');
+      }
+      res.status(200).send('Unregistered from assessment');
+    });
+  });
+});
+
+
+
+
+
+
+// Get assessments user is registered for
+app.get('/user/assessments', verifyToken, (req, res) => {
+  db.all('SELECT a.* FROM assessments a INNER JOIN user_assessments ua ON a.id = ua.assessment_id WHERE ua.user_id = ?', [req.userId], (err, rows) => {
+    if (err) return res.status(500).send(err.message);
+    res.json(rows);
+  });
+});
 
 
 // Start server
