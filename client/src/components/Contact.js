@@ -11,7 +11,7 @@ export default class Contact extends Component {
             <Col md={8}>
               <Card className="text-center">
                 <Card.Body>
-                  <Card.Title>Contact</Card.Title>
+                  <Card.Title>I Love You Potti</Card.Title>
                 </Card.Body>
               </Card>
             </Col>
